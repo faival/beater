@@ -1,0 +1,11 @@
+{
+	"name": "wemix",
+	"version": "0.0.1",
+	"description": "Multi person stream dj mixer",
+	"dependencies": { 
+		"socket.io": "~0.9.16", 
+		"mime": "~1.2.11"
+
+	}
+}
+
