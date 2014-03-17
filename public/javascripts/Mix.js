@@ -19,23 +19,23 @@ Mix.prototype.changeRoom = function(room) {
 
 Mix.prototype.processCommand = function(action) {
 	var words = action.split(' ');
- 	var command = words[0].substring(1, words[0].length).toLowerCase();
- 	console.log(this.class);
+ 	var command = words[0].substring(1, words[0].length);
  	console.log(command);
+ 	var joinData = null;
 	switch(command) {
 		case 'join' :
-			var joinData = {
+			joinData = {
 				pName : words[1],
 				pRoom : words[2]
 			};
-			this.socket.emit('join', joinData);
-		break;
-		case 'changeroom' :
-			var room = words.join(' ');
-			this.changeRoom(room);
-		break;
+			break;
 
+		case 'addSong' :
+			joinData = {
+				pSong : words[1]
+			};
+			break;
 		default: 
-			this.sendMessage(words[0], action.substring(words[0].length, action.length));
 	}
+	this.socket.emit(command, joinData);
 }

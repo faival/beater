@@ -27,13 +27,26 @@ $(document).ready(function(){
 
 
 	socket.on('message', function(result){
-		$('#messages').append(divEscapedContentElement(result.text));
+		$('#messages').append(divEscapedContentElement(result.text+'\n'));
+
+
+
 	});
+
+	socket.on('joined', function(result){
+		
+		$('#room-list').append(divEscapedContentElement("rooms: "+result.rooms+'\n'));
+		$('#room-list').append(divEscapedContentElement("participants: "+result.participants+'\n'));
+
+
+	});
+
 
 	socket.on('rooms', function(rooms){
 		$('#room-list').empty();
 
-		for(var room in rooms){
+		for(var room in rooms) {
+			
 			console.log(room.id);
 		}
 	});
