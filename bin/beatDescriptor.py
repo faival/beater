@@ -12,7 +12,7 @@ import essentia.streaming
 from essentia.standard import *
 
 lowLevelDesc = [
- 'barkbands',
+ 'barkbands', 
  'barkbands_kurtosis',
  'barkbands_skewness',
  'barkbands_spread',
@@ -44,7 +44,7 @@ lowLevelDesc = [
  'logAttackTime' #only mean
  ]
 
-targetDesc = [3, 16, 19, 20, 29]
+targetDesc = [0, 5, 6, 15, 16, 17, 18, 19, 20, 25, 29]
 
 def parse_args():
 
@@ -208,21 +208,25 @@ def processBeat(onsetIndex, beatAudio):
     for frame in FrameGenerator(beatAudio, frameSize = 1024, hopSize = 512):
         #mfcc_bands, mfcc_coeffs = mfcc(spectrum(w(frame)))
         lowLevelCoef = lowLevelSpectralEqLoud(w(frame))
-        for coeficientIndex in targetDesc:
-            if "logAttackTime" not in lowLevelDesc[coeficientIndex] :
-                pool.add(lowLevelDesc[coeficientIndex], lowLevelCoef[coeficientIndex])
+        for coeficient in targetDesc:
+            coeficientKey =  lowLevelDesc[coeficient]
+            if "logAttackTime" != coeficientKey:
+                coeficientValue = numpy.mean(numpy.mean(lowLevelCoef[coeficient]))
+                pool.add(coeficientKey, coeficientValue)
 
-    
     beatLogAttackTime = logAttackTime(beatAudio)
     pool.add("logAttackTime", beatLogAttackTime)
 
     print "#compute stats"                
-    stats = ['mean', 'var']
-    exceptions = {'logAttackTime': ['mean']}
-    poolStats = essentia.standard.PoolAggregator(defaultStats=stats, exceptions=exceptions)(pool)
+    stats = ['mean']
+    exceptions = {
+        'logAttackTime': ['mean'], 
+        'barkbands' : ['mean']
+    }
+    #poolStats = essentia.standard.PoolAggregator(defaultStats=stats, exceptions=exceptions)(pool)
     beatInfoPath = args[0]+'.features/'+str(onsetIndex)+'.features'+'.json'    
-    essentia.standard.YamlOutput(filename=beatInfoPath, format='json')(poolStats)
-    return poolStats
+    essentia.standard.YamlOutput(filename=beatInfoPath, format='json')(pool)
+    return pool
 
 
 def processRhythmDescriptors():
@@ -249,10 +253,10 @@ def processBeatDescriptors():
     # and then we actually perform the loading:
     audio = loader()
 
-
     beatsInfo = {}
     for onsetIndex in range(len(onsets)):
-        if onsetIndex > len(onsets) / 2:
+        
+        if onsetIndex > len(onsets) * 2 / 3:
             break
         startTime = onsets[onsetIndex]
         timeDiff = (intervals[onsetIndex] / 2)
@@ -281,4 +285,4 @@ if __name__ == '__main__':
     if opts.method == 'analyseRhythmFeatures':
         processRhythmDescriptors()
         processBeatDescriptors()
-        processBeatClasses()
+        #processBeatClasses()
