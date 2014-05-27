@@ -1,0 +1,63 @@
+.nowmixing-container {
+	width: 100%;
+	margin: 5px 0px 5px 0px;
+}
+
+.nowmixing-beat-navigator {
+	width: 100%;
+	margin: 5px;
+}
+
+.nowmixing-beat-navigator ul {
+	list-style-type: none;
+	height: 200px;
+	padding: 5px 0px 5px 0px;
+	margin: 5px 0px 5px 0px;
+	
+}
+
+.nowmixing-beat-navigator ul li {
+	height: 120px;
+	width: 10%;
+	padding: 5px;
+	margin: 5px;
+	display: inline-block;
+}
+
+.nowmixing-beat-navigator ul li canvas {
+	width: 100px;
+	height: 100px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.nowmixing-button {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.nowmixing-button-tuple {
+	display: inline-block;
+}
+
+.nowmixing-controls {
+	position: fixed;
+	display: block;
+	bottom: 50px;
+	width: 60%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.nowmixing-controls input {
+
+}
+
+.nowmixing-ctrl-button {
+	width: 200px;
+	border-radius:25px;
+	border:1px solid #a1a1a1;
+	padding:10px 40px; 
+	background:#dddddd;
+
+}

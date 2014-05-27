@@ -1,28 +1,32 @@
-body { 
-	padding: 50px;
-	font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-}
+@import url("heading_nav_bar.css");
+@import url("footer_nav_bar.css");
+@import url("nowmixing-body.css");
 
-a{ 
-	color: #00B7FF;
-}
-
-#content { 
-	width: 800px; 
-	margin-left: auto; 
+html, body {
+	font: 12px "Courier New", Helvetica, Arial, sans-serif;
+	font: -webkit-small-control;
+	font-weight: normal;
 	margin-right: auto;
+	margin-left: auto;
 }
 
-#room { 
-	background-color: #ddd;
-	margin-bottom: 1em;
+
+h1 {
+	text-align: center;
+	margin: 0px;
+	width: 200px;
+	padding: 5px;
+	margin-right: auto;
+	margin-left: auto;
+	position: relative;
+	display: block;
 }
 
-#messages { 
-	width: 690px; 
-	height: 300px;
-	overflow: auto; 
-	background-color: #eee; 
-	margin-bottom: 1em;
-	margin-right: 10px;
+
+#container { 
+	width: 80%;
+	margin-left: auto;
+	margin-right: auto;
+	position: relative;
+	top: 60px;
 }

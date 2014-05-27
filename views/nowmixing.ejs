@@ -1,0 +1,50 @@
+<%- layout("layout") %>
+
+<h2> <%- users[0].name + 
+		viewData.viewHeading +
+		users[1].name
+		%>
+</h2>
+
+
+<div class='nowmixing-container'>
+	<div class='nowmixing-beat-navigator'>
+		<ul>
+			<% 
+				var beatIndex = 0;
+				for(beat in viewData.beats) { 
+			%>
+					<li class='nowmixing-button<% if (beat % 4 == 0) { %> nowmixing-button-tuple<% } %>'>
+						<canvas class="nowmixing-canvas-button" data-beat-number="<%- beat %>">
+						</canvas>
+					</li>
+			<%		
+				beatIndex++;
+				}
+			%>
+		</ul>
+	</div>		
+</div>
+
+<div class='nowmixing-sound'>
+	<div class='nowmixing-sound-controller'>
+			<audio id='nowmixing-mix-sound-source'>
+			<% 
+				var mixIndex = 0;
+				for (mix in mixData) { 
+			%>
+						<source src="<%- mixData[mix].songData.songUrl %>" data-nowmixing-payload="<%- mixData[mix] %>" data-mix-index="<%- mixData[mix].songData.songId %>" type="audio/mpeg">
+		  	<%
+		  			mixIndex++;
+		  		}
+		  	%>
+		  Your browser does not support the audio tag.
+		</audio>
+	</div>
+	<div class="nowmixing-controls">
+		<input id="nowmixing-play-current-mix" type="button" value="Next" class="nowmixing-ctrl-button"/>
+	</div>
+</div>
+
+<script type="text/javascript" src="/javascripts/controllers/nowmixing.js"></script>
+<% postRender() %>
