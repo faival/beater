@@ -1,11 +1,11 @@
 <%- layout("layout") %>
-
+<!--
 <h2> <%- users[0].name + 
 		viewData.viewHeading +
 		users[1].name
 		%>
 </h2>
-
+-->
 
 <div class='nowmixing-container'>
 	<div class='nowmixing-beat-navigator'>
@@ -14,9 +14,13 @@
 				var beatIndex = 0;
 				for(beat in viewData.beats) { 
 			%>
-					<li class='nowmixing-button<% if (beat % 4 == 0) { %> nowmixing-button-tuple<% } %>'>
-						<canvas class="nowmixing-canvas-button" data-beat-number="<%- beat %>">
-						</canvas>
+					<% if (beat == 0) { %> 
+						<span class='nowmixing-button-tuple'>
+					<% } else if (beat % 4 == 0) { %>
+						</span>
+						<span class='nowmixing-button-tuple'>
+					<% } %>
+					<li class='nowmixing-button' data-beat-number="<%- beat %>">
 					</li>
 			<%		
 				beatIndex++;
@@ -26,25 +30,31 @@
 	</div>		
 </div>
 
-<div class='nowmixing-sound'>
+<div class='nowmixing-sound'> 
 	<div class='nowmixing-sound-controller'>
-			<audio id='nowmixing-mix-sound-source'>
+		<audio id='nowmixing-mix-sound-source' data-nowmixing-payload="<%= JSON.stringify(mixData) %>" >
+			<!--
 			<% 
 				var mixIndex = 0;
 				for (mix in mixData) { 
 			%>
-						<source src="<%- mixData[mix].songData.songUrl %>" data-nowmixing-payload="<%- mixData[mix] %>" data-mix-index="<%- mixData[mix].songData.songId %>" type="audio/mpeg">
+						<source src="<%- mixData[mix].songData.songUrl %>" data-nowmixing-payload="<%= JSON.stringify(mixData[mix]) %>" data-mix-index="<%- mixData[mix].songData.songId %>" class="nowmixing-data" type="audio/mpeg">
 		  	<%
 		  			mixIndex++;
 		  		}
 		  	%>
+
+		  	-->
 		  Your browser does not support the audio tag.
 		</audio>
 	</div>
-	<div class="nowmixing-controls">
-		<input id="nowmixing-play-current-mix" type="button" value="Next" class="nowmixing-ctrl-button"/>
-	</div>
 </div>
 
+<div class="nowmixing-controls-container">
+	<div class="nowmixing-controls">
+		<input id="nowmixing-play-current-mix" type="button" value="Next" class="nowmixing-ctrl-button">
+		<input type="range" name="points" min="0" max="120" class="nowmixing-ctrl-button nowmixing-controls-slider">
+	</div>
+<div>
 <script type="text/javascript" src="/javascripts/controllers/nowmixing.js"></script>
 <% postRender() %>

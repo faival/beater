@@ -33,11 +33,8 @@ router.get('/', function(req, res) {
 	var mixData = null;
 
 	mongoMix.getDataForParticipant(null, function(participantData){
-		console.log(participantData);
 		mixData = participantData;
-
 		console.log(Object.keys(mixData));
-		console.log(mixData);
 		console.log(users);
 		var viewData = getViewData();
 		res.render('nowmixing', 
